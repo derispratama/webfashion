@@ -27,5 +27,8 @@ Route::get('/jersey', [App\Http\Controllers\Web\HomeController::class, 'jersey']
 Route::get('/jersey/detail/{id}', [App\Http\Controllers\Web\HomeController::class, 'detail']);
 Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keranjang']);
 
+// dashboard
+Route::resource('liga', App\Http\Controllers\LigaController::class);
+
 
 
