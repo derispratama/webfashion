@@ -29,6 +29,7 @@ Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keran
 
 // dashboard
 Route::resource('liga', App\Http\Controllers\LigaController::class);
+Route::resource('produk', App\Http\Controllers\ProdukController::class);
 
 
 
