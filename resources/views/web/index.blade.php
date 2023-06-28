@@ -96,42 +96,17 @@
     <section id="liga" class="mt-5">
         <h5 style="font-weight: bold">Pilih Liga</h5>
         <div class="row">
+            @foreach($liga as $l)
             <div class="col-3">
-                <a href="#">
+                <a href="/jersey/{{$l->id}}">
                     <div class="card card-liga">
                         <div class="card-body" style="display: flex; justify-content: center;align-items: center;">
-                            <img src="{{ asset('assets/liga/bundesliga.png') }}" class="img-fluid img-liga">
+                            <img src="{{ asset('storage/'.$l->gambar) }}" class="img-fluid img-liga">
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="card card-liga">
-                        <div class="card-body" style="display: flex; justify-content: center;align-items: center;">
-                            <img src="{{ asset('assets/liga/laliga.png') }}" class="img-fluid img-liga">
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="card card-liga">
-                        <div class="card-body" style="display: flex; justify-content: center;align-items: center;">
-                            <img src="{{ asset('assets/liga/premierleague.png') }}" class="img-fluid img-liga">
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="card card-liga">
-                        <div class="card-body" style="display: flex; justify-content: center;align-items: center;">
-                            <img src="{{ asset('assets/liga/seriea.png') }}" class="img-fluid img-liga">
-                        </div>
-                    </div>
-                </a>
-            </div>
+            @endforeach
         </div>
     </section>
 
@@ -142,46 +117,18 @@
         </div>
 
         <div class="row">
+            @foreach($produk as $p)
             <div class="col-3">
                 <div class="card mt-3">
                     <div class="card-body card-produk">
-                        <img src="{{ asset('assets/jersey/acmilan.png') }}" class="img-fluid img-produk">
-                        <span class="nama-produk">AC MILAN HOME 2021-2022</span>
-                        <span class="harga-produk">Rp. 100.000</span>
-                        <a href="jersey/detail/1" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
+                        <img src="{{ asset('storage/'.$p->gambar) }}" class="img-fluid img-produk">
+                        <span class="nama-produk">{{$p->nama}}</span>
+                        <span class="harga-produk">Rp. {{$p->harga}}</span>
+                        <a href="jersey/detail/{{$p->id}}" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
                     </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="card mt-3">
-                    <div class="card-body card-produk">
-                        <img src="{{ asset('assets/jersey/asroma.png') }}" class="img-fluid img-produk">
-                        <span class="nama-produk">AC MILAN HOME 2021-2022</span>
-                        <span class="harga-produk">Rp. 100.000</span>
-                        <a href="jersey/detail/1" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card mt-3">
-                    <div class="card-body card-produk">
-                        <img src="{{ asset('assets/jersey/chelsea.png') }}" class="img-fluid img-produk">
-                        <span class="nama-produk">AC MILAN HOME 2021-2022</span>
-                        <span class="harga-produk">Rp. 100.000</span>
-                        <a href="jersey/detail/1" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card mt-3">
-                    <div class="card-body card-produk">
-                        <img src="{{ asset('assets/jersey/dortmund.png') }}" class="img-fluid img-produk">
-                        <span class="nama-produk">AC MILAN HOME 2021-2022</span>
-                        <span class="harga-produk">Rp. 100.000</span>
-                        <a href="jersey/detail/1" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 </div>

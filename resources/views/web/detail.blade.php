@@ -85,23 +85,18 @@
         <div class="row mt-3">
             <div class="col-6">
                 <div class="foto-produk">
-                    <img src="{{ asset('assets/jersey/asroma.png') }}" class="img-fluid img-produk" style="height: 500px">
+                    <img src="{{ asset('storage/'.$produk->gambar) }}" class="img-fluid img-produk" style="height: 500px">
                 </div>
             </div>
             <div class="col-6">
-                <h2 style="font-weight: bold">AC MILAN HOME - 2022-2023</h2>
-                <h5>Rp. 100.000</h5>
+                <h2 style="font-weight: bold">{{$produk->nama}}</h2>
+                <h5>Rp. {{$produk->harga}}</h5>
 
                 <table class="table mt-3 w-75">
                     <tr>
                         <td style="width: 10px;">Liga</td>
                         <td>:</td>
-                        <td><img src="{{ asset('assets/liga/laliga.png') }}" class="img-fluid img-produk" style="width: 50px"></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis</td>
-                        <td>:</td>
-                        <td>Replika Top Quality</td>
+                        <td><img src="{{ asset('storage/'.$produk->gambar_liga) }}" class="img-fluid img-produk" style="width: 50px"></td>
                     </tr>
                     <tr>
                         <td>Jumlah</td>

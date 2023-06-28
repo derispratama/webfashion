@@ -23,7 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // web
 Route::get('/', [App\Http\Controllers\Web\HomeController::class, 'index']);
-Route::get('/jersey', [App\Http\Controllers\Web\HomeController::class, 'jersey']);
+Route::get('/jersey/{id_liga?}', [App\Http\Controllers\Web\HomeController::class, 'jersey']);
 Route::get('/jersey/detail/{id}', [App\Http\Controllers\Web\HomeController::class, 'detail']);
 Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keranjang']);
 
