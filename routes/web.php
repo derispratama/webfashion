@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -30,6 +30,11 @@ Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keran
 // dashboard
 Route::resource('liga', App\Http\Controllers\LigaController::class);
 Route::resource('produk', App\Http\Controllers\ProdukController::class);
+
+//auth
+Route::get('/login', [App\Http\Controllers\AuthController::class, 'index']);
+Route::get('/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::get('/forgotpass', [App\Http\Controllers\AuthController::class, 'forgotpass']);
 
 
 

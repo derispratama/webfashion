@@ -124,7 +124,7 @@
                         <img src="{{ asset('storage/'.$p->gambar) }}" class="img-fluid img-produk">
                         <span class="nama-produk">{{$p->nama}}</span>
                         <span class="harga-produk">Rp. {{$p->harga}}</span>
-                        <a href="jersey/detail/{{$p->id}}" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
+                        <a href="/jersey/detail/{{$p->id}}" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
                     </div>
                 </div>
             </div>
