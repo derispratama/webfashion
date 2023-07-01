@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'MONALEASE',
+    'title' => '',
     'title_prefix' => '',
-    'title_postfix' => '| MONALEASE',
+    'title_postfix' => '| ',
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b> Monalease',
+    'logo' => '<b>Admin</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -303,10 +303,6 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
@@ -314,8 +310,7 @@ return [
         [
             'text'        => 'dashboard',
             'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            'icon'        => 'fas fa-fw fa fa-chart-bar',
             'label_color' => 'success',
         ],
 
@@ -326,29 +321,38 @@ return [
             'icon'    => 'fas fa-fw fa-user',
             'submenu' => [
                 [
-                    'text' => 'user',
-                    'url'  => 'user',
+                    'text' => 'users',
+                    'url'  => 'users',
+                    'active' => ['pages', 'users', 'users*', 'regex:@^users/[0-9]+$@']
                 ],
             ],
         ],
         [
             'text'    => 'manajemen_produk',
-            'icon'    => 'fas fa-fw fa-user',
+            'icon'    => 'fas fa-fw fa fa-box',
             'submenu' => [
                 [
                     'text' => 'Liga',
                     'url'  => 'liga',
+                    'active' => ['pages', 'liga', 'liga*', 'regex:@^liga/[0-9]+$@']
                 ],
                 [
                     'text' => 'Produk',
                     'url'  => 'produk',
+                    'active' => ['pages', 'produk', 'produk*', 'regex:@^produk/[0-9]+$@']
                 ],
             ],
         ],
         [
             'text' => 'bank',
             'url'  => 'bank',
-            'icon' => 'fas fa-fw fa-user',
+            'active' => ['pages', 'bank', 'bank*', 'regex:@^bank/[0-9]+$@'],
+            'icon' => 'fa fa-money-bill-alt',
+        ],
+        [
+            'text' => 'logout',
+            'url'  => 'logout',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
         ],
     ],
 

@@ -38,7 +38,12 @@ class AuthController extends Controller
                 $request->session()->put('name', $check[0]->name);
                 $request->session()->put('email', $check[0]->email);
 
-                return redirect('/')->with('success', 'User berhasil register');
+                if($check[0]->email == 'admin@gmail.com'){
+                    return redirect('/liga');
+                }else{
+                    return redirect('/')->with('success', 'User berhasil register');
+                }
+
             }
 
         }else{
@@ -86,10 +91,10 @@ class AuthController extends Controller
     {
         $check = DB::table('users')->where('email', $email)->get();
 
-        if (isset($check[0]->username)) {
-            return $check;
-        } else {
+        if (isset($check[0]->name)) {
             return false;
+        } else {
+            return true;
         }
     }
 

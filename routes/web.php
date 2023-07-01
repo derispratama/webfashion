@@ -30,6 +30,8 @@ Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keran
 // dashboard
 Route::resource('liga', App\Http\Controllers\LigaController::class);
 Route::resource('produk', App\Http\Controllers\ProdukController::class);
+Route::resource('bank', App\Http\Controllers\BankController::class);
+Route::resource('users', App\Http\Controllers\UserController::class);
 
 //auth
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'index']);

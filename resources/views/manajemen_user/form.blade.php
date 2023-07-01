@@ -19,7 +19,7 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <form action="{{isset($data) ? '/liga/'.$data->id : '/liga'}}" method="POST" id="form" enctype="multipart/form-data">
+                    <form action="{{isset($data) ? '/users/'.$data->id : '/users'}}" method="POST" id="form" enctype="multipart/form-data">
                         @csrf
                         @if(isset($data))
                             @method('PUT')
@@ -29,21 +29,31 @@
                         <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
 
                         <div class="form-group">
-                            <label for="nama">Nama Liga</label>
-                            <input type="text" name="nama" class="form-control" id="nama" placeholder="silahkan isi.." value="{{isset($data) ? $data->nama : old('nama')}}">
-                            @error('nama')
-                                <span class="text-danger" id="nama_error">{{$message}}</span>
+                            <label for="name">Nama</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="silahkan isi.." value="{{isset($data) ? $data->name : old('name')}}">
+                            @error('name')
+                            <span class="text-danger" id="name_error">{{$message}}</span>
+                            @enderror
+                        </div><div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" class="form-control" id="email" placeholder="silahkan isi.." value="{{isset($data) ? $data->email : old('email')}}">
+                            @error('email')
+                            <span class="text-danger" id="email_error">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="gambar">Image</label>
-
-                            <img src="{{isset($data) ? asset('storage/'.$data->gambar) : ''}}" id="img_gambar" class="mb-3 img-thumbnail {{isset($data) ? '' : 'd-none'}}" style="width: 200px; height: 200px;">
-
-                            <input type="file" name="gambar" class="form-control" id="gambar">
-                            <small> * File Upload yang diperbolehkan berektensi JPG,JPEG,PNG,webp</small><br>
-                            <small> * Maksimal Upload 2MB</small><br>
-                            <span class="text-danger" id="gambar_error"></span>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="silahkan isi.." value="{{old('password')}}">
+                            @error('password')
+                            <span class="text-danger" id="password_error">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="cpassword">Confirm Password</label>
+                            <input type="password" name="cpassword" class="form-control" id="cpassword" placeholder="silahkan isi.." value="{{old('cpassword')}}">
+                            @error('cpassword')
+                            <span class="text-danger" id="cpassword_error">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary float-right" id="btn-submit">Save <i class="fa fa-save"></i></button>

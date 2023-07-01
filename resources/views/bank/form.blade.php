@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Form Produk</h1>
+    <h1 class="m-0 text-dark">Form Bank</h1>
 @stop
 @section('plugins.Sweetalert2',true)
 @section('content')
@@ -20,7 +20,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <form action="{{isset($data) ? '/produk/'.$data->id : '/produk'}}" method="POST" id="form" enctype="multipart/form-data">
+                    <form action="{{isset($data) ? '/bank/'.$data->id : '/bank'}}" method="POST" id="form" enctype="multipart/form-data">
                         @csrf
                         @if(isset($data))
                             @method('PUT')
@@ -30,10 +30,17 @@
                         <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
 
                         <div class="form-group">
-                            <label for="nama">Jersey</label>
+                            <label for="nama">Nama Bank</label>
                             <input type="text" name="nama" class="form-control" id="nama" placeholder="silahkan isi.." value="{{isset($data) ? $data->nama : old('nama')}}">
                             @error('nama')
                                 <span class="text-danger" id="nama_error">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="norek">Norek</label>
+                            <input type="text" name="norek" class="form-control" id="norek" placeholder="silahkan isi.." value="{{isset($data) ? $data->norek : old('norek')}}">
+                            @error('norek')
+                            <span class="text-danger" id="norek_error">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -45,36 +52,6 @@
                             <small> * File Upload yang diperbolehkan berektensi JPG,JPEG,PNG,webp</small><br>
                             <small> * Maksimal Upload 2MB</small><br>
                             <span class="text-danger" id="gambar_error"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama">Liga</label>
-                            <select name="id_liga" id="id_liga" class="form-control">
-                                <option value="">Pilih Liga</option>
-                                @foreach($liga as $row)
-                                    @if(isset($data->id_liga) && $data->id_liga == $row->id)
-                                        <option value="{{$row->id}}" selected>{{$row->nama}}</option>
-                                    @else
-                                        <option value="{{$row->id}}">{{$row->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @error('id_liga')
-                                <span class="text-danger" id="liga_error">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="stok">Stok</label>
-                            <input type="text" name="stok" class="form-control" id="stok" placeholder="silahkan isi.." value="{{isset($data) ? $data->stok : old('stok')}}">
-                            @error('stok')
-                            <span class="text-danger" id="stok_error">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Harga</label>
-                            <input type="text" name="harga" class="form-control" id="harga" placeholder="silahkan isi.." value="{{isset($data) ? $data->harga : old('harga')}}">
-                            @error('harga')
-                            <span class="text-danger" id="harga_error">{{$message}}</span>
-                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary float-right" id="btn-submit">Save <i class="fa fa-save"></i></button>
