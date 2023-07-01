@@ -8,12 +8,17 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $liga = DB::table('liga')->get();
         $produk = DB::table('produk')->orderBy('id','desc')->limit(4)->get();
+        $countKeranjang = 0;
+        if($request->session()->get('id')){
+            $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+        }
         return view('web.index',[
             'liga' => $liga,
             'produk' => $produk,
+            'countKeranjang' => $countKeranjang,
         ]);
     }
 
@@ -32,23 +37,38 @@ class HomeController extends Controller
             }
         }
 
+        $countKeranjang = 0;
+        if($request->session()->get('id')){
+            $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+        }
         return view('web.jersey',[
             'produk' => $produk,
-            'id_liga' => $id_liga
+            'id_liga' => $id_liga,
+            'countKeranjang' => $countKeranjang,
         ]);
     }
 
-    public function detail($id){
+    public function detail(Request $request, $id){
         $produk = DB::table('produk')->join('liga','liga.id','=','produk.id_liga')->select('produk.*','liga.gambar as gambar_liga')->where('produk.id',$id)->get()[0];
+
+        $countKeranjang = 0;
+        if($request->session()->get('id')){
+            $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+        }
         return view('web.detail',[
-            'produk' => $produk
+            'produk' => $produk,
+            'countKeranjang' => $countKeranjang,
         ]);
     }
 
     public function keranjang(Request $request){
 
         $data = DB::table('produk')->select('produk.*','keranjang.qty','keranjang.id as id_keranjang')->join('keranjang','keranjang.id_produk','produk.id')->where('keranjang.id_user',$request->session()->get('id'))->get();
-        $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+
+        $countKeranjang = 0;
+        if($request->session()->get('id')){
+            $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+        }
 
         return view('web.keranjang',[
             'data' => $data,
@@ -65,10 +85,18 @@ class HomeController extends Controller
         if($request->session()->get('name')){
             $data = [
                 'id_produk' => $request->id_produk,
-                'qty' => $request->qty,
                 'id_user' => $request->session()->get('id'),
             ];
-            $post = DB::table('keranjang')->insert($data);
+
+            $checkProdukExist = DB::table('keranjang')->where('id_produk',$request->id_produk)->get();
+
+            if(isset($checkProdukExist[0]->qty)){
+                $data['qty'] = intval($request->qty) + intval($checkProdukExist[0]->qty);
+                $post = DB::table('keranjang')->where('id',$checkProdukExist[0]->id)->update($data);
+            }else{
+                $data['qty'] = $request->qty;
+                $post = DB::table('keranjang')->insert($data);
+            }
 
             if($post){
                 return redirect('keranjang');
