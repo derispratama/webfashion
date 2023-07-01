@@ -39,7 +39,7 @@ class AuthController extends Controller
                 $request->session()->put('email', $check[0]->email);
 
                 if($check[0]->email == 'admin@gmail.com'){
-                    return redirect('/liga');
+                    return redirect('/dashboard');
                 }else{
                     return redirect('/')->with('success', 'User berhasil register');
                 }

@@ -28,6 +28,8 @@ Route::get('/jersey/detail/{id}', [App\Http\Controllers\Web\HomeController::clas
 Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keranjang']);
 
 // dashboard
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
 Route::resource('liga', App\Http\Controllers\LigaController::class);
 Route::resource('produk', App\Http\Controllers\ProdukController::class);
 Route::resource('bank', App\Http\Controllers\BankController::class);

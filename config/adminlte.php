@@ -307,14 +307,14 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'DASHBOARD'],
         [
             'text'        => 'dashboard',
-            'url'         => 'admin/pages',
+            'url'         => 'dashboard',
+            'active' => ['pages', 'dashboard', 'dashboard*', 'regex:@^dashboard/[0-9]+$@'],
             'icon'        => 'fas fa-fw fa fa-chart-bar',
             'label_color' => 'success',
         ],
-
-
         ['header' => 'master'],
         [
             'text'    => 'manajemen_user',
@@ -349,6 +349,7 @@ return [
             'active' => ['pages', 'bank', 'bank*', 'regex:@^bank/[0-9]+$@'],
             'icon' => 'fa fa-money-bill-alt',
         ],
+        ['header' => '-------------------------------------------'],
         [
             'text' => 'logout',
             'url'  => 'logout',
