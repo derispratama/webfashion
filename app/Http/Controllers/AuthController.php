@@ -21,7 +21,8 @@ class AuthController extends Controller
         return view('login.forgotpass');
     }
 
-    public function checklogin(Request $request){
+    public function checklogin(Request $request)
+    {
         $validate = $request->validate([
             'email' => 'required|email:rfc,dns',
             'password' => 'required',
@@ -45,7 +46,8 @@ class AuthController extends Controller
         }
     }
 
-    public function user_register(Request $request){
+    public function user_register(Request $request)
+    {
 
         $validate = $request->validate([
             'name' => 'required',
@@ -80,7 +82,8 @@ class AuthController extends Controller
 
     }
 
-    public function checkRegistered($email){
+    public function checkRegistered($email)
+    {
         $check = DB::table('users')->where('email', $email)->get();
 
         if (isset($check[0]->username)) {

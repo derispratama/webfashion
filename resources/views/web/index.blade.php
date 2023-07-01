@@ -50,9 +50,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/keranjang">Keranjang <i class="fa fa-cart-plus"></i> <span class="badge bg-danger">5</span></a>
-                </li>
+                @if(session()->get('name'))
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/keranjang">Keranjang <i class="fa fa-cart-plus"></i> <span class="badge bg-danger">{{$countKeranjang}}</span></a>
+                    </li>
+                @endif
                 @if(session()->get('name'))
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

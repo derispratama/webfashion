@@ -50,9 +50,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
+                @if(session()->get('name'))
                 <li class="nav-item">
-                    <a class="nav-link active" href="/keranjang">Keranjang <i class="fa fa-cart-plus"></i> <span class="badge bg-danger">5</span></a>
+                    <a class="nav-link active" href="/keranjang">Keranjang <i class="fa fa-cart-plus"></i> <span class="badge bg-danger">{{$countKeranjang}}</span></a>
                 </li>
+                @endif
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cristiano Ronaldo
@@ -71,7 +73,7 @@
 <div class="container">
     <section id="bestproduk" class="mt-5">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 style="font-weight: bold">Keranjang (5)</h5>
+            <h5 style="font-weight: bold">Keranjang ({{$countKeranjang}})</h5>
         </div>
 
         <table class="table mt-3">
@@ -87,61 +89,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('assets/jersey/acmilan.png') }}" class="img-fluid img-produk w-25">
-                </td>
-                <td class="text-center">AC MILAN HOME - 2022-2023</td>
-                <td class="text-center">1</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('assets/jersey/chelsea.png') }}" class="img-fluid img-produk w-25">
-                </td>
-                <td class="text-center">AC MILAN HOME - 2022-2023</td>
-                <td class="text-center">1</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('assets/jersey/asroma.png') }}" class="img-fluid img-produk w-25">
-                </td>
-                <td class="text-center">AC MILAN HOME - 2022-2023</td>
-                <td class="text-center">1</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('assets/jersey/dortmund.png') }}" class="img-fluid img-produk w-25">
-                </td>
-                <td class="text-center">AC MILAN HOME - 2022-2023</td>
-                <td class="text-center">1</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-                <td class="d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('assets/jersey/mu.png') }}" class="img-fluid img-produk w-25">
-                </td>
-                <td class="text-center">AC MILAN HOME - 2022-2023</td>
-                <td class="text-center">5</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td class="text-center">Rp. 100.000</td>
-                <td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-            </tr>
+            @foreach($data as $key => $row)
+                <tr>
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td class="d-flex justify-content-center align-items-center">
+                        <img src="{{ asset('assets/jersey/acmilan.png') }}" class="img-fluid img-produk w-25">
+                    </td>
+                    <td class="text-center">{{$row->nama}}</td>
+                    <td class="text-center">{{$row->qty}}</td>
+                    <td class="text-center">Rp. {{$row->harga}}</td>
+                    <td class="text-center">Rp. {{intval($row->harga) * intval($row->qty)}}</td>
+                    <td><button data-id="{{$row->id_keranjang}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </section>

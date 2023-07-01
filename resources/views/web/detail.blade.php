@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <title>JersiPedia</title>
 
     <style>
@@ -113,7 +115,7 @@
                             </td>
                         </tr>
                     </table>
-                    <button class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
+                    <button type="submit" id="btn-submit" class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
                 </form>
             </div>
         </div>
@@ -130,7 +132,26 @@
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    $('#btn-submit').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
 
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Untuk menambahkan produk ini ke keranjang?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Tambahkan!'
+        }).then((result) => {
+            if(result.value){
+                form.submit();
+            }
+        })
+    });
+</script>
 <!-- Option 2: Separate Popper and Bootstrap JS -->
 <!--
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

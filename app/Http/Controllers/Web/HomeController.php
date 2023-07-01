@@ -45,7 +45,39 @@ class HomeController extends Controller
         ]);
     }
 
-    public function keranjang(){
-        return view('web.keranjang');
+    public function keranjang(Request $request){
+
+        $data = DB::table('produk')->select('produk.*','keranjang.qty','keranjang.id as id_keranjang')->join('keranjang','keranjang.id_produk','produk.id')->where('keranjang.id_user',$request->session()->get('id'))->get();
+        $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+
+        return view('web.keranjang',[
+            'data' => $data,
+            'countKeranjang' => $countKeranjang,
+        ]);
     }
+
+    public function store_keranjang(Request $request)
+    {
+        $validate = $request->validate([
+            'qty' => 'required'
+        ]);
+
+        if($request->session()->get('name')){
+            $data = [
+                'id_produk' => $request->id_produk,
+                'qty' => $request->qty,
+                'id_user' => $request->session()->get('id'),
+            ];
+            $post = DB::table('keranjang')->insert($data);
+
+            if($post){
+                return redirect('keranjang');
+            }else{
+                return redirect('/login');
+            }
+        }else{
+            return redirect('/login');
+        }
+    }
+
 }
