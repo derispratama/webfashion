@@ -38,23 +38,40 @@
         <div class="login-form d-flex justify-content-center align-items-center w-full">
             <div class="w-100 p-5">
                 <h1 class="text-center mb-5"><span style="font-weight: bold">Jersi</span>Pedia</h1>
-                <form action="">
-                    <h5 style="font-weight: bold">Sign in</h5>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-at"></i></span>
-                        <input type="text" class="form-control" placeholder="example@gmail.com" autocomplete="off" autofocus aria-label="Username" aria-describedby="basic-addon1">
+                @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{session('error')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
-                        <input type="password" class="form-control" placeholder="*****" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                @endif
+                <form action="/checklogin" method="post">
+                    @csrf
+                    @method('post')
+                    <h5 style="font-weight: bold">Sign in</h5>
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-at"></i></span>
+                            <input type="text" name="email" class="form-control" placeholder="example@gmail.com" autocomplete="off" autofocus aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('email')
+                            <span class="text-danger" id="email_error">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="*****" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('password')
+                            <span class="text-danger" id="password_error">{{$message}}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-secondary w-100">Sign In</button>
-
-                    <div class="d-flex justify-content-between">
-                        <a href="/register">Register</a>
-                        <a href="/forgotpass">Forgot Password</a>
-                    </div>
                 </form>
+                <div class="d-flex justify-content-between">
+                    <a href="/register">Register</a>
+                    <a href="/forgotpass">Forgot Password</a>
+                </div>
             </div>
         </div>
     </div>

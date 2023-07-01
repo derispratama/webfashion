@@ -38,20 +38,53 @@
         <div class="login-form d-flex justify-content-center align-items-center w-full">
             <div class="w-100 p-5">
                 <h1 class="text-center mb-5"><span style="font-weight: bold">Jersi</span>Pedia</h1>
-                <form action="">
+                @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{session('error')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                <form action="/user_register" method="post">
+                    @csrf
+                    @method('post')
                     <h5 style="font-weight: bold">Register</h5>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                        <input type="password" class="form-control" placeholder="Nama Lengkap" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" name="name" value="{{@old('name')}}" placeholder="Nama Lengkap" autocomplete="off" autofocus aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('name')
+                            <span class="text-danger" id="name_error">{{$message}}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-at"></i></span>
-                        <input type="text" class="form-control" placeholder="example@gmail.com" autocomplete="off" autofocus aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-at"></i></span>
+                            <input type="text" class="form-control" name="email" value="{{@old('email')}}" placeholder="example@gmail.com" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('email')
+                            <span class="text-danger" id="email_error">{{$message}}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
-                        <input type="password" class="form-control" placeholder="*****" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="password" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('password')
+                            <span class="text-danger" id="password_error">{{$message}}</span>
+                        @enderror
                     </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
+                            <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="confirm password" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        @error('cpassword')
+                            <span class="text-danger" id="cpassword_error">{{$message}}</span>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-secondary w-100">Register</button>
 
                     <div class="d-flex justify-content-between">

@@ -33,8 +33,12 @@ Route::resource('produk', App\Http\Controllers\ProdukController::class);
 
 //auth
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'index']);
+Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
 Route::get('/register', [App\Http\Controllers\AuthController::class, 'register']);
 Route::get('/forgotpass', [App\Http\Controllers\AuthController::class, 'forgotpass']);
+
+Route::post('/checklogin', [App\Http\Controllers\AuthController::class, 'checklogin']);
+Route::post('/user_register', [App\Http\Controllers\AuthController::class, 'user_register']);
 
 
 

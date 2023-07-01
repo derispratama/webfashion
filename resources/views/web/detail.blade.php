@@ -92,19 +92,29 @@
                 <h2 style="font-weight: bold">{{$produk->nama}}</h2>
                 <h5>Rp. {{$produk->harga}}</h5>
 
-                <table class="table mt-3 w-75">
-                    <tr>
-                        <td style="width: 10px;">Liga</td>
-                        <td>:</td>
-                        <td><img src="{{ asset('storage/'.$produk->gambar_liga) }}" class="img-fluid img-produk" style="width: 50px"></td>
-                    </tr>
-                    <tr>
-                        <td>Jumlah</td>
-                        <td>:</td>
-                        <td><input type="number" class="form-control"></td>
-                    </tr>
-                </table>
-                <button class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
+                <form action="/keranjang" method="post" id="form">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" name="id_produk" id="id_produk" value="{{$produk->id}}" readonly>
+                    <table class="table mt-3 w-75">
+                        <tr>
+                            <td style="width: 10px;">Liga</td>
+                            <td>:</td>
+                            <td><img src="{{ asset('storage/'.$produk->gambar_liga) }}" class="img-fluid img-produk" style="width: 50px"></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah</td>
+                            <td>:</td>
+                            <td>
+                                <input name="qty" id="qty" type="number" class="form-control">
+                                @error('qty')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
+                </form>
             </div>
         </div>
     </section>
