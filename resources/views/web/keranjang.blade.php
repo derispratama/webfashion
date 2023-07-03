@@ -12,8 +12,8 @@
                 <th scope="col" class="text-center">No</th>
                 <th scope="col" class="text-center">Gambar</th>
                 <th scope="col" class="text-center">Keterangan</th>
-                <th scope="col" class="text-center">Jumlah</th>
                 <th scope="col" class="text-center">Harga</th>
+                <th scope="col" class="text-center">Jumlah</th>
                 <th scope="col" class="text-center">Total Harga</th>
                 <th></th>
             </tr>
@@ -34,11 +34,11 @@
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td class="d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('assets/jersey/acmilan.png') }}" class="img-fluid img-produk w-25">
+                            <img src="{{ asset('storage/'.$row->gambar) }}" class="img-fluid img-produk w-25">
                         </td>
                         <td class="text-center">{{$row->nama}}</td>
-                        <td class="text-center">{{$row->qty}}</td>
                         <td class="text-center">Rp. {{$row->harga}}</td>
+                        <td class="text-center">{{$row->qty}}</td>
                         <td class="text-center">Rp. {{intval($row->harga) * intval($row->qty)}}</td>
                         <td><button data-id="{{$row->id_keranjang}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
                     </tr>

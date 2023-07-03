@@ -34,6 +34,8 @@ Route::resource('liga', App\Http\Controllers\LigaController::class);
 Route::resource('produk', App\Http\Controllers\ProdukController::class);
 Route::resource('bank', App\Http\Controllers\BankController::class);
 Route::resource('users', App\Http\Controllers\UserController::class);
+Route::resource('payment', App\Http\Controllers\PaymentController::class);
+Route::post('/payment/verifikasi', [App\Http\Controllers\PaymentController::class, 'verifikasi']);
 
 //auth
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'index']);

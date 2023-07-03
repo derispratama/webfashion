@@ -344,9 +344,15 @@ return [
             ],
         ],
         [
-            'text' => 'bank',
+            'text' => 'Bank',
             'url'  => 'bank',
             'active' => ['pages', 'bank', 'bank*', 'regex:@^bank/[0-9]+$@'],
+            'icon' => 'fa fa-money-bill-alt',
+        ],
+        [
+            'text' => 'Pembayaran',
+            'url'  => 'payment',
+            'active' => ['pages', 'payment', 'payment*', 'regex:@^payment/[0-9]+$@'],
             'icon' => 'fa fa-money-bill-alt',
         ],
         ['header' => '-------------------------------------------'],
