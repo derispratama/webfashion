@@ -59,7 +59,7 @@
     <div class="col-6">
         <div class="card card-success">
             <div class="card-header">
-                <h3 class="card-title">Chart Penjualan Jersey Berdasarkan Liga</h3>
+                <h3 class="card-title">Chart Jumlah Jersey Berdasarkan Liga</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
@@ -68,26 +68,8 @@
             </div>
             <div class="card-body">
                 <div class="chart">
-                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card card-danger">
-            <div class="card-header">
-                <h3 class="card-title">Chart Jumlah Jersey Berdasarkan Liga</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
@@ -96,76 +78,54 @@
 
 @section('js')
     <script>
-        var areaChartData = {
-            labels  : ['Laliga', 'Premier League', 'Serie A', 'Bundesliga'],
-            datasets: [
-                {
-                    label               : 'Terjual',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19]
-                }
-            ]
-        }
-
         var donutData = {
-            labels: [
-                'Chrome',
-                'IE',
-                'FireFox',
-                'Safari',
-                'Opera',
-                'Navigator',
-            ],
+            labels: [],
             datasets: [
                 {
-                    data: [700,500,400,600,300,100],
+                    data: [],
                     backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                 }
             ]
         }
 
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        var barChartData = $.extend(true, {}, areaChartData)
-        var temp0 = areaChartData.datasets[0]
-        barChartData.datasets[0] = temp0
+        getChart(donutData);
 
-        var barChartOptions = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
+        function getChart(donutData){
+            $.ajax({
+                url:'/dashboard/chart',
+                method:'get',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success(data){
+                    console.log(data)
+                    data.data.map((val,idx) => {
+                        donutData.labels.push(val.nama_liga);
+                        donutData.datasets[0].data.push(val.totalstok);
+                    });
+                    //-------------
+                    //- PIE CHART -
+                    //-------------
+                    // Get context with jQuery - using jQuery's .get() method.
+                    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+                    var pieData        = donutData;
+                    var pieOptions     = {
+                        maintainAspectRatio : false,
+                        responsive : true,
+                    }
+                    //Create pie or douhnut chart
+                    // You can switch between pie and douhnut using the method below.
+                    new Chart(pieChartCanvas, {
+                        type: 'pie',
+                        data: pieData,
+                        options: pieOptions
+                    })
+                }
+            });
+
         }
 
-        new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
 
-        //-------------
-        //- PIE CHART -
-        //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-        var pieData        = donutData;
-        var pieOptions     = {
-            maintainAspectRatio : false,
-            responsive : true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(pieChartCanvas, {
-            type: 'pie',
-            data: pieData,
-            options: pieOptions
-        })
     </script>
 @endsection

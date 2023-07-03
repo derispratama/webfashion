@@ -30,6 +30,7 @@ Route::get('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'keran
 // dashboard
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
+Route::get('/dashboard/chart', [App\Http\Controllers\DashboardController::class, 'chart']);
 Route::resource('liga', App\Http\Controllers\LigaController::class);
 Route::resource('produk', App\Http\Controllers\ProdukController::class);
 Route::resource('bank', App\Http\Controllers\BankController::class);
