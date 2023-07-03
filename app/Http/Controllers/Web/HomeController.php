@@ -70,9 +70,12 @@ class HomeController extends Controller
             $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
         }
 
+        $bank = DB::table('bank')->get();
+
         return view('web.keranjang',[
             'data' => $data,
             'countKeranjang' => $countKeranjang,
+            'bank' => $bank,
         ]);
     }
 
@@ -105,6 +108,62 @@ class HomeController extends Controller
             }
         }else{
             return redirect('/login');
+        }
+    }
+
+    public function checkout(Request $request)
+    {
+        $validate = $request->validate([
+            'nohp' => 'required',
+            'alamat' => 'required',
+            'idbank' => 'required',
+        ]);
+
+        $datapayment = [
+            'noresi' => date('Ymdhis'),
+            'iduser' => $request->session()->get('id'),
+            'nohp' => $request->nohp,
+            'alamat' => $request->alamat,
+            'bukti_transfer' =>  $request->file('bukti_transfer')->store('bukti_transfer'),
+            'status' => 0,
+            'tglbayar' => date('Y-m-d h:i:s'),
+        ];
+
+        $payment = DB::table('payment')->insertGetId($datapayment);
+
+        if($payment){
+            $keranjang = DB::table('keranjang')->join('produk','produk.id','=','keranjang.id_produk')->where('id_user',$request->session()->get('id'))->get();
+            foreach($keranjang as $k){
+                $datadetailpayment = [
+                    'id_payment' => $payment,
+                    'id_produk' => $k->id_produk,
+                    'qty' => $k->qty,
+                    'totalharga' => intval($k->harga) * intval($k->qty),
+                ];
+
+                $detailpayment = DB::table('detail_payment')->insert($datadetailpayment);
+
+                if($detailpayment){
+                    $produk = DB::table('produk')->where('id',$k->id_produk)->get()[0];
+                    $dataUpdateStok = [
+                        'stok' => intval($produk->stok) - intval($k->qty)
+                    ];
+                    $updatestok = DB::table('produk')->where('id',$k->id_produk)->update($dataUpdateStok);
+
+                    if($updatestok){
+                        //reset keranjang
+                        DB::table('keranjang')->where('id_user',$request->session()->get('id'))->delete();
+                        //reset keranjang
+                        return redirect('/keranjang')->with('success', 'Checkout berhasil');
+                    }else{
+                        return redirect('/keranjang')->with('error', 'Checkout gagal');
+                    }
+                }else{
+                    return redirect('/keranjang')->with('error', 'Checkout gagal');
+                }
+            }
+        }else{
+            return redirect('/keranjang')->with('error', 'Checkout gagal');
         }
     }
 

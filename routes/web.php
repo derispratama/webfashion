@@ -44,6 +44,7 @@ Route::get('/forgotpass', [App\Http\Controllers\AuthController::class, 'forgotpa
 Route::post('/checklogin', [App\Http\Controllers\AuthController::class, 'checklogin']);
 Route::post('/user_register', [App\Http\Controllers\AuthController::class, 'user_register']);
 Route::post('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'store_keranjang']);
+Route::post('/checkout', [App\Http\Controllers\Web\HomeController::class, 'checkout']);
 
 
 

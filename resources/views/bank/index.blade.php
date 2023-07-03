@@ -38,6 +38,7 @@
                             <th scope="col">Gambar</th>
                             <th scope="col">Bank</th>
                             <th scope="col">No Rek</th>
+                            <th scope="col">Atas Nama</th>
                             <th scope="col">Aksi</th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td><img style="width: 100%;object-fit:contain; height: 100px;" src="{{asset('storage/'.$row->gambar)}}" alt="gambar" class="img-thumbnail"></td>
                                 <td>{{$row->nama}}</td>
                                 <td>{{$row->norek}}</td>
+                                <td>{{$row->atasnama}}</td>
                                 <td>
                                     <a href="/bank/{{$row->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></a>
                                     <button data-id="{{$row->id}}" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button>

@@ -33,11 +33,13 @@ class BankController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required|max:20',
+            'atasnama' => 'required|max:100',
             'norek' => 'required|max:20',
         ]);
 
         $data = [
             'nama' => $request->nama,
+            'atasnama' => $request->atasnama,
             'norek' => $request->norek,
             'gambar' => $request->file('gambar')->store('bank'),
         ];
@@ -77,11 +79,13 @@ class BankController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required|max:20',
+            'atasnama' => 'required|max:100',
             'norek' => 'required|max:20',
         ]);
 
         $data = [
             'nama' => $request->nama,
+            'atasnama' => $request->atasnama,
             'norek' => $request->norek,
         ];
 

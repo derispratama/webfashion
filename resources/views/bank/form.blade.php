@@ -44,6 +44,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="atasnama">Atas Nama</label>
+                            <input type="text" name="atasnama" class="form-control" id="atasnama" placeholder="silahkan isi.." value="{{isset($data) ? $data->atasnama : old('atasnama')}}">
+                            @error('atasnama')
+                            <span class="text-danger" id="atasnama_error">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="gambar">Image</label>
 
                             <img src="{{isset($data) ? asset('storage/'.$data->gambar) : ''}}" id="img_gambar" class="mb-3 img-thumbnail {{isset($data) ? '' : 'd-none'}}" style="width: 200px; height: 200px;">
