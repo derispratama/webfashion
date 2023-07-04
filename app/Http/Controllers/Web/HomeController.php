@@ -179,10 +179,25 @@ class HomeController extends Controller
                 }
             }
 
-            return redirect('/keranjang')->with('success', 'Checkout berhasil');
+            return redirect('/history')->with('success', 'Checkout berhasil');
         }else{
             return redirect('/keranjang')->with('error', 'Checkout gagal');
         }
+    }
+
+    public function history(Request $request)
+    {
+        $data = DB::table('payment')->select('payment.*','users.name','users.email')->join('users','users.id','=','payment.iduser')->where('users.id',$request->session()->get('id'))->get();
+
+        $countKeranjang = 0;
+        if($request->session()->get('id')){
+            $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
+        }
+
+        return view('web.history',[
+            'data' => $data,
+            'countKeranjang' => $countKeranjang,
+        ]);
     }
 
 }

@@ -71,7 +71,7 @@
                             {{session()->get('name')}}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">History</a></li>
+                            <li><a class="dropdown-item" href="/history">History</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
