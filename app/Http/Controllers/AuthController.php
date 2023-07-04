@@ -103,4 +103,22 @@ class AuthController extends Controller
         $request->session()->flush();
         return redirect('/login');
     }
+
+    public function update_pass(Request $request){
+        $validateData = $request->validate([
+            'email' => 'required|email:rfc,dns',
+        ]);
+
+        $data = [
+            'password' => Crypt::encryptString('123456')
+        ];
+
+        $action = DB::table('users')->where('email',$request->email)->update($data);
+
+        if ($action) {
+            return redirect('/forgotpass')->with('success', 'Password berhasil diubah, password anda : 123456');
+        } else {
+            return redirect('/forgotpass')->with('error', 'Password gagal diubah');
+        }
+    }
 }
