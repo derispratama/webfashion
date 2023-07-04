@@ -32,6 +32,7 @@ class LigaController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required|max:20',
+            'gambar' => 'required|mimes:jpg,jpeg,png',
         ]);
 
         $data = [

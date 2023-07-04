@@ -44,7 +44,9 @@
                             <input type="file" name="gambar" class="form-control" id="gambar">
                             <small> * File Upload yang diperbolehkan berektensi JPG,JPEG,PNG,webp</small><br>
                             <small> * Maksimal Upload 2MB</small><br>
-                            <span class="text-danger" id="gambar_error"></span>
+                            @error('gambar')
+                            <span class="text-danger" id="gambar_error">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="nama">Liga</label>

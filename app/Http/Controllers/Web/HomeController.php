@@ -133,6 +133,7 @@ class HomeController extends Controller
         $validate = $request->validate([
             'nohp' => 'required',
             'alamat' => 'required',
+            'bukti_transfer' => 'required|mimes:jpg,jpeg,png',
             'idbank' => 'required',
         ]);
 

@@ -35,6 +35,7 @@ class BankController extends Controller
             'nama' => 'required|max:20',
             'atasnama' => 'required|max:100',
             'norek' => 'required|max:20',
+            'gambar' => 'required|mimes:jpg,jpeg,png',
         ]);
 
         $data = [

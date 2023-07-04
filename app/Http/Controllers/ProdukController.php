@@ -39,6 +39,7 @@ class ProdukController extends Controller
             'id_liga' => 'required|max:20',
             'stok' => 'required|max:20',
             'harga' => 'required|max:20',
+            'gambar' => 'required|mimes:jpg,jpeg,png',
         ]);
 
         $data = [
