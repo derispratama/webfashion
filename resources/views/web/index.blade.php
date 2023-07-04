@@ -57,7 +57,11 @@
                         <span class="nama-produk" style="font-size: 14px">{{$p->nama}}</span>
                         <div>
                             <span class="harga-produk">Rp. {{$p->harga}}</span>
-                            <span class="badge bg-success">Stok {{$p->stok}}</span>
+                            @if($p->stok <= 0)
+                                <span class="badge bg-danger">Stok Habis</span>
+                            @else
+                                <span class="badge bg-success">Stok {{$p->stok}}</span>
+                            @endif
                         </div>
                         <a href="/jersey/detail/{{$p->id}}" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
                     </div>

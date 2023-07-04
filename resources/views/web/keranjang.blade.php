@@ -40,7 +40,7 @@
                         <td class="text-center">Rp. {{$row->harga}}</td>
                         <td class="text-center">{{$row->qty}}</td>
                         <td class="text-center">Rp. {{intval($row->harga) * intval($row->qty)}}</td>
-                        <td><button data-id="{{$row->id_keranjang}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+                        <td><button data-id="{{$row->id_keranjang}}" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></td>
                     </tr>
                 @endforeach
                 <tr>
@@ -124,6 +124,48 @@
         }).then((result) => {
             if (result.value) {
                 form.submit();
+            }
+        })
+    });
+
+    $(document).on('click','.btn-delete',function (){
+        const id = $(this).data('id');
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Untuk hapus produk ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url:'/keranjang/'+id,
+                    method:'delete',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success(data){
+                        if(data.status){
+                            Swal.fire(
+                                '',
+                                data.msg,
+                                'success'
+                            )
+                        }else{
+                            Swal.fire(
+                                '',
+                                data.msg,
+                                'warning'
+                            )
+                        }
+                        setTimeout(() => {
+                            window.location.href = '/keranjang';
+                        },1000)
+                    }
+                });
             }
         })
     });

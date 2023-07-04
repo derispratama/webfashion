@@ -201,4 +201,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function delete_keranjang($id){
+        $action = DB::table('keranjang')->where('id',$id)->delete();
+        if ($action) {
+            echo json_encode(['msg' => 'Produk berhasil di hapus','status' => true]);
+        } else {
+            echo json_encode(['msg' => 'Produk gagal di hapus','status' => false]);
+        }
+    }
+
 }

@@ -49,6 +49,7 @@ Route::post('/checklogin', [App\Http\Controllers\AuthController::class, 'checklo
 Route::post('/user_register', [App\Http\Controllers\AuthController::class, 'user_register']);
 Route::post('/update_pass', [App\Http\Controllers\AuthController::class, 'update_pass']);
 Route::post('/keranjang', [App\Http\Controllers\Web\HomeController::class, 'store_keranjang']);
+Route::delete('/keranjang/{id}', [App\Http\Controllers\Web\HomeController::class, 'delete_keranjang']);
 Route::post('/checkout', [App\Http\Controllers\Web\HomeController::class, 'checkout']);
 
 
