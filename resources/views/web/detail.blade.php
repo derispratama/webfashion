@@ -14,7 +14,21 @@
             </div>
             <div class="col-6">
                 <h2 style="font-weight: bold">{{$produk->nama}}</h2>
-                <h5>Rp. {{$produk->harga}}</h5>
+                <div class="d-flex">
+                    <h5>Rp. {{$produk->harga}}</h5>
+                    @if($produk->stok <= 0)
+                        <h5 class="badge bg-danger" style="margin-left: 10px">Stok Habis</h5>
+                    @else
+                        <h5 class="badge bg-success" style="margin-left: 10px">Stok {{$produk->stok}}</h5>
+                    @endif
+                </div>
+
+                @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
                 <form action="/keranjang" method="post" id="form">
                     @csrf
@@ -37,7 +51,9 @@
                             </td>
                         </tr>
                     </table>
-                    <button type="submit" id="btn-submit" class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
+                    @if($produk->stok > 0)
+                        <button type="submit" id="btn-submit" class="btn btn-secondary w-75"><i class="fa fa-cart-arrow-down"></i> Check Out</button>
+                    @endif
                 </form>
             </div>
         </div>

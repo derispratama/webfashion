@@ -54,8 +54,11 @@
                 <div class="card mt-3">
                     <div class="card-body card-produk">
                         <img src="{{ asset('storage/'.$p->gambar) }}" class="img-fluid img-produk">
-                        <span class="nama-produk">{{$p->nama}}</span>
-                        <span class="harga-produk">Rp. {{$p->harga}}</span>
+                        <span class="nama-produk" style="font-size: 14px">{{$p->nama}}</span>
+                        <div>
+                            <span class="harga-produk">Rp. {{$p->harga}}</span>
+                            <span class="badge bg-success">Stok {{$p->stok}}</span>
+                        </div>
                         <a href="/jersey/detail/{{$p->id}}" class="btn btn-secondary btn-sm w-100 mt-2"><i class="fa fa-eye"></i> Detail</a>
                     </div>
                 </div>

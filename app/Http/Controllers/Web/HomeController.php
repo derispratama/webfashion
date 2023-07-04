@@ -23,6 +23,7 @@ class HomeController extends Controller
     }
 
     public function jersey(Request $request,$id_liga = ''){
+        $liga = 'All';
         if($id_liga == ''){
             if(isset($request->search_jersey)){
                 $produk = DB::table('produk')->where('nama','like',$request->search_jersey.'%')->orderBy('id','desc')->get();;
@@ -35,6 +36,8 @@ class HomeController extends Controller
             }else {
                 $produk = DB::table('produk')->where('id_liga', $id_liga)->orderBy('id', 'desc')->get();
             }
+            $qliga = DB::table('liga')->where('id',$id_liga)->get()[0];
+            $liga = $qliga->nama;
         }
 
         $countKeranjang = 0;
@@ -45,6 +48,7 @@ class HomeController extends Controller
             'produk' => $produk,
             'id_liga' => $id_liga,
             'countKeranjang' => $countKeranjang,
+            'liga' => $liga,
         ]);
     }
 
@@ -55,6 +59,7 @@ class HomeController extends Controller
         if($request->session()->get('id')){
             $countKeranjang = DB::table('keranjang')->where('id_user',$request->session()->get('id'))->count();
         }
+
         return view('web.detail',[
             'produk' => $produk,
             'countKeranjang' => $countKeranjang,
@@ -91,9 +96,21 @@ class HomeController extends Controller
                 'id_user' => $request->session()->get('id'),
             ];
 
+            $produk = DB::table('produk')->where('id',$request->id_produk)->get()[0];
+            $stok = intval($produk->stok);
+
+            if($stok < intval($request->qty)){
+                return redirect('jersey/detail/'.$request->id_produk)->with('error','Stok tidak mencukupi');
+            }
+
             $checkProdukExist = DB::table('keranjang')->where('id_produk',$request->id_produk)->get();
 
             if(isset($checkProdukExist[0]->qty)){
+                $stok_keranjang = intval($checkProdukExist[0]->qty) + intval($request->qty);
+                if($stok < $stok_keranjang){
+                    return redirect('jersey/detail/'.$request->id_produk)->with('error','Stok tidak mencukupi, silahkan cek keranjang anda');
+                }
+
                 $data['qty'] = intval($request->qty) + intval($checkProdukExist[0]->qty);
                 $post = DB::table('keranjang')->where('id',$checkProdukExist[0]->id)->update($data);
             }else{
@@ -154,7 +171,6 @@ class HomeController extends Controller
                         //reset keranjang
                         DB::table('keranjang')->where('id_user',$request->session()->get('id'))->delete();
                         //reset keranjang
-                        return redirect('/keranjang')->with('success', 'Checkout berhasil');
                     }else{
                         return redirect('/keranjang')->with('error', 'Checkout gagal');
                     }
@@ -162,6 +178,8 @@ class HomeController extends Controller
                     return redirect('/keranjang')->with('error', 'Checkout gagal');
                 }
             }
+
+            return redirect('/keranjang')->with('success', 'Checkout berhasil');
         }else{
             return redirect('/keranjang')->with('error', 'Checkout gagal');
         }
