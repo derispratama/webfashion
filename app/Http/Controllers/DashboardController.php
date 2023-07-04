@@ -23,7 +23,7 @@ class DashboardController extends Controller
     }
 
     public function chart(){
-        $payment = DB::select('SELECT l.id as id_liga, l.nama as nama_liga, SUM(p.stok) as totalstok FROM produk p INNER JOIN liga l ON l.id = p.id_liga GROUP BY l.id;');
+        $payment = DB::select('SELECT l.id as id_liga, l.nama as nama_liga, SUM(p.stok) as totalstok FROM produk p INNER JOIN liga l ON l.id = p.id_liga GROUP BY l.id,l.nama;');
         echo json_encode(['data' => $payment]);
     }
 }
