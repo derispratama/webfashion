@@ -108,6 +108,15 @@ class BankController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $action = DB::table('bank')->where('id',$id)->delete();
+            if ($action) {
+                echo json_encode(['msg' => 'Bank berhasil di hapus','status' => true]);
+            } else {
+                echo json_encode(['msg' => 'Bank gagal di hapus','status' => false]);
+            }
+        }catch (\Illuminate\Database\QueryException $ex){
+            echo json_encode(['msg' => 'Bank gagal di hapus','status' => false]);
+        }
     }
 }

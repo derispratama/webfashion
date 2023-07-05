@@ -63,5 +63,47 @@
 @section('js')
     <script>
         $('#table').dataTable();
+
+        $(document).on('click','.btn-delete',function (){
+            const id = $(this).data('id');
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Untuk hapus pembayaran ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url:'/liga/'+id,
+                        method:'delete',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success(data){
+                            if(data.status){
+                                Swal.fire(
+                                    '',
+                                    data.msg,
+                                    'success'
+                                )
+                                setTimeout(() => {
+                                    window.location.href = '/liga';
+                                },1000)
+                            }else{
+                                Swal.fire(
+                                    '',
+                                    data.msg,
+                                    'warning'
+                                )
+                            }
+                        }
+                    });
+                }
+            })
+        });
     </script>
 @stop

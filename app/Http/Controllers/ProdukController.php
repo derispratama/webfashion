@@ -117,6 +117,15 @@ class ProdukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $action = DB::table('produk')->where('id',$id)->delete();
+            if ($action) {
+                echo json_encode(['msg' => 'Produk berhasil di hapus','status' => true]);
+            } else {
+                echo json_encode(['msg' => 'Produk gagal di hapus','status' => false]);
+            }
+        }catch (\Illuminate\Database\QueryException $ex){
+            echo json_encode(['msg' => 'Produk sudah mempunyai relasi dengan payment','status' => false]);
+        }
     }
 }

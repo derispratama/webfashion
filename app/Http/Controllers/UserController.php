@@ -132,6 +132,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $action = DB::table('users')->where('id',$id)->delete();
+            if ($action) {
+                echo json_encode(['msg' => 'User berhasil di hapus','status' => true]);
+            } else {
+                echo json_encode(['msg' => 'User gagal di hapus','status' => false]);
+            }
+        }catch (\Illuminate\Database\QueryException $ex){
+            echo json_encode(['msg' => 'User gagal dihapus','status' => false]);
+        }
     }
 }

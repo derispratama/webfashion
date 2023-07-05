@@ -216,6 +216,9 @@
                             setTimeout(() => {
                                 window.location.href = '/payment';
                             },1000)
+                        },
+                        error(error){
+                            console.log(error)
                         }
                     });
                 }

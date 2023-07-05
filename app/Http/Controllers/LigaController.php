@@ -99,6 +99,15 @@ class LigaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $action = DB::table('liga')->where('id',$id)->delete();
+            if ($action) {
+                echo json_encode(['msg' => 'Liga berhasil di hapus','status' => true]);
+            } else {
+                echo json_encode(['msg' => 'Liga gagal di hapus','status' => false]);
+            }
+        }catch (\Illuminate\Database\QueryException $ex){
+            echo json_encode(['msg' => 'Liga sudah mempunyai relasi dengan produk','status' => false]);
+        }
     }
 }
