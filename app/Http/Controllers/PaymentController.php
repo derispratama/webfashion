@@ -103,17 +103,15 @@ class PaymentController extends Controller
      */
     public function destroy(string $id)
     {
-        $action = DB::table('payment')->where('id',$id)->delete();
+        $action = DB::table('detail_payment')->where('id_payment',$id)->delete();
         if ($action) {
             $data = DB::table('detail_payment')->where('id_payment',$id)->get();
-
             foreach($data as $row){
                 $qty = $row->qty;
                 $id_produk = $row->id_produk;
                 DB::select("UPDATE produk SET stok = stok + $qty WHERE id = $id_produk");
             }
-
-            $actiondetail = DB::table('detail_payment')->where('id_payment',$id)->delete();
+             DB::table('payment')->where('id',$id)->delete();
             echo json_encode(['msg' => 'Pembayaran berhasil di hapus','status' => true]);
         } else {
             echo json_encode(['msg' => 'Pembayaran gagal di hapus','status' => false]);
